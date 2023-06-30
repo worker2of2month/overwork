@@ -1,4 +1,4 @@
--- A basic encounter script skeleton you can copy and modify for your own creations. 
+-- A basic encounter script skeleton you can copy and modify for your own creations.
 
 -- music = "shine_on_you_crazy_diamond" --Either OGG or WAV. Extension is added automatically. Uncomment for custom music.
 encountertext = "Poseur strikes a pose!" --Modify as necessary. It will only be read out in the action select screen.
