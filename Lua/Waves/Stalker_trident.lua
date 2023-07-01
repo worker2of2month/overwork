@@ -5,6 +5,9 @@ last_beep_time = 0 -- время, через которое спрайт вос�
 warning_beep_time = 3 -- константа
 
 attack_number = 0 -- это - 1 = сколько копий уже было брошено
+fireball_timer = 0
+
+--epsilon = 5e-4
 
 Encounter["wavetimer"] = math.huge
 
@@ -29,7 +32,14 @@ function Update()
 
     --DEBUG(Player.y)
 
+    fireball_timer = fireball_timer + 1
     --spawntimer = spawntimer + 1
+
+    if fireball_timer % 10 == 0 and #emitters == 6 and #fireballs <= 100 then
+        for i=1,6 do
+            create_fireball(emitters[i])
+        end
+    end
 
     --[[CreateLayer("void", "BelowUI", true)
     void = CreateSprite("void")
@@ -67,37 +77,93 @@ end
 function firewall_configuration(x) -- firewall_number - номер волны огня 
 
     local emitter_r = {}
+    local emitter_l = {}
 
-    emitter_r.init_y = 110
-    emitter_r.init_x = -100 + x * 64
+    emitter_l.amplitude = -0.5
+	emitter_r.amplitude = 0.5
+
+    emitter_r.init_y = 220
+    emitter_r.init_x = -80 + x * 40
     emitter_r.y_velocity = -2.85
 
+    emitter_r.index = #emitters + 1
+
+    emitter_l.init_y = 220
+    emitter_l.init_x = -80 + x * 40
+    emitter_l.y_velocity = -2.85
+
+    emitter_l.index = #emitters
+
+    table.insert(emitters, emitter_l)
     table.insert(emitters, emitter_r)
 
     firewall_status = true 
-
-    if #fireballs == 0 and #emitters == 7 then
-        for i=1,7 do
-            create_fireball(emitters[i])
-        end
-    end
 end
 
 function create_fireball(emitter)
-    local fireball = CreateProjectile("hitbox_fire", math.random(30,60), emitter.init_y)
-    
+    local fireball = CreateProjectile("hitbox_fire", emitter.init_x, emitter.init_y)
+    fireball.sprite.Set("firebullet0")
+
+    fireball.SetVar("time_from_beggin", 0)
+    fireball.SetVar("amp_mul", 1)
+    fireball.SetVar("amplitude", emitter.amplitude)
+    fireball.SetVar("init_x", emitter.init_x)
+    --fireball.SetVar("amp_mul_cooldown", 0)
+    fireball.SetVar("Period", 0)
+    fireball.SetVar("Period_timer", 0)
+
+
     table.insert(fireballs, fireball)
 end
 
 function update_fireball(fireball)
-    fireball.Move(0, -1)
- 
-    for key, value in pairs(fireballs) do
-        DEBUG(key, value)
+
+    local time_from_beggin = fireball.GetVar("time_from_beggin", 0) + 1
+    fireball.SetVar("time_from_beggin", time_from_beggin)
+
+    --[[if math.abs(1 - math.cos(time_from_beggin / 40)) <= epsilon and Time.time - fireball.GetVar("amp_mul_cooldown") >= 40  then
+        if (fireball.GetVar("amp_mul") == 1) then
+            fireball.SetVar("amp_mul", 1/2)
+        else 
+            fireball.SetVar("amp_mul", 1)
+        end
+        fireball.SetVar("amp_mul_cooldown", Time.time)
+    end]]
+
+    if fireball.GetVar("init_x") == fireball.x and fireball.GetVar("Period") == 0 then 
+        fireball.SetVar("amp_mul", 1/10)
+        fireball.SetVar("Period", 1)
+        fireball.SetVar("Period_timer", 0)
+    elseif fireball.GetVar("Period") == 1 and fireball.GetVar("Period_timer") == 15 then
+        fireball.SetVar("amp_mul", 1)
     end
+
+    if fireball.GetVar("Period") == 1 then
+        fireball.SetVar("Period_timer", fireball.GetVar("Period_timer") + 1)
+    end
+
+
+    --DEBUG(fireball.GetVar("amp_mul_cooldown"))
+
+    --DEBUG(tostring(math.abs(1 - math.cos(time_from_beggin / 40))))
+
+    local amp_mul = fireball.GetVar("amp_mul")
+
+    local amplitude = fireball.GetVar("amplitude") * amp_mul
+
+    local Newx = amplitude * math.cos(time_from_beggin / 40 * 2)
+
+    --DEBUG(tostring(Newx))
+
+    fireball.Move(Newx, -1.5)
+ 
+    --[[for key, value in pairs(fireballs) do
+        DEBUG(key, value)
+    end]]
+
 end
 
-for i=1,7 do
+for i=1,3 do
 	firewall_configuration(i)
 end
 
