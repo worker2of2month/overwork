@@ -72,7 +72,7 @@ function Update()
     --DEBUG(Player.y)
 
     spawn_shit_timer = spawn_shit_timer + 1
-    --spawntimer = spawntimer + 1
+    spawntimer = spawntimer + 1
 
     --[[CreateLayer("void", "BelowUI", true)
     void = CreateSprite("void")
@@ -296,6 +296,8 @@ function EndingWave()
     Void.Remove()
     warning.Remove()
     Void2.Remove()
+    Void3.Remove()
+    arenaover.Remove()
 end
 
 function OnHit(bullet)
