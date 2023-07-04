@@ -29,7 +29,7 @@ possible_attacks = {"Stalker_trident"}
 function Update()
 	currenttime = Time.time - starttime
     if intro then 
-        stalker_intro()
+        --stalker_intro()
         --intro = false
     end
 	Updatestalker()
@@ -64,12 +64,16 @@ function EncounterStarting()
 	require "Animations/asgore"
     Player.name = "Ivan"
     Audio.LoadFile("Intro")
-    BattleDialog({"[effect:none][novoice][noskip][waitall:2][font:Russian](А)[w:1000][next]"})
+	
+	stalkercape.layer = "BelowArena"
+	stalkerfeet.layer = "BelowArena"
+    --BattleDialog({"[effect:none][novoice][noskip][waitall:2][font:Russian](А)[w:1000][next]"})
 
     -- If you want to change the game state immediately, this is the place.
 end
 
-function EnemyDialogueStarting() -- Good location for setting monster dialogue depending on how the battle is going.
+function EnemyDialogueStarting()
+    -- Good location for setting monster dialogue depending on how the battle is going.
     --if intro then
     --    enemies[1]["currentdialogue"] = {"[noskip][w:30][next]",
 	--                                 "[effect:none][voice:v_fluffybuns][waitall:1]Ivan...[w:30][next]",
@@ -79,12 +83,17 @@ function EnemyDialogueStarting() -- Good location for setting monster dialogue d
 end
 
 function EnemyDialogueEnding()
+
+	stalkercape.layer = "Ugly"
+	stalkerfeet.layer = "Ugly"
+
     -- Good location to fill the 'nextwaves' table with the attacks you want to have simultaneously.
     nextwaves = { possible_attacks[math.random(#possible_attacks)] }
 end
 
 function DefenseEnding() --This built-in function fires after the defense round ends
-    
+    stalkercape.layer = "BelowArena"
+	stalkerfeet.layer = "BelowArena"
 end
 
 function HandleSpare()

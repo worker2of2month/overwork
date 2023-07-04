@@ -21,16 +21,18 @@ FireWall = {}
 
 Arena.Resize(150,150)
 
-CreateLayer("Ugly", "Top", true)
 Void = CreateSprite("masks/Arena_150x170", "Ugly", -1)
 Void.MoveTo(Arena.x - 155, Arena.y + 89)
 Void2 = CreateSprite("masks/Arena_150x170", "Ugly", -1)
 Void2.MoveTo(Arena.x - 155 - 150, Arena.y + 89)
-Void3 = CreateSprite("masks/Void_sprite", "Ugly", -1)
+
+Void3 = CreateSprite("masks/Void_sprite", "Ugly2", -1)
 Void3.MoveTo(Arena.x, Arena.y * 2 + 77)
 
-Void4 = CreateSprite("masks/Arena_150x170", "Ugly", -1)
+Void4 = CreateSprite("masks/Arena_150x170", "Ugly2", -1)
 Void4.MoveTo(Arena.x + 150, Arena.y + 85)
+Void5 = CreateSprite("masks/Arena_150x170", "Ugly2", -1)
+Void5.MoveTo(Arena.x + 150 + 150, Arena.y + 88)
 
 arenaover = CreateSprite('masks/arenaover', "Ugly", -1)
 arenaover.Scale(0.765, 0.765)
@@ -262,7 +264,8 @@ function create_trident()
 	end
     attack_number = attack_number + 1
     Audio.PlaySound("Warning")
-    bullet = CreateProjectile("trident_attack", -195, Player.y + offset --[[math.random(-40, 40)]])
+    bullet = CreateProjectile("trident_attack", -195, Player.y + offset --[[math.random(-40, 40)]], "")
+    bullet.sprite.layer = "Ugly3"
     bullet.ppcollision = true
 
     beep()
@@ -305,6 +308,9 @@ function EndingWave()
     warning.Remove()
     Void2.Remove()
     arenaover.Remove()
+    Void3.Remove()
+    Void4.Remove()
+    Void5.Remove()
 end
 
 function OnHit(bullet)

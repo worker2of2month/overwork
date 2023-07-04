@@ -2,7 +2,8 @@
 <font>
 <voice>v_papyrus</voice>
 <color>ffffff</color>
-<linespacing>33.0</linespacing>
+<charspacing>2</charspacing>
+<linespacing>1</linespacing>
 <spritesheet> <!-- source for identifying characters: https://fontstruct.com/make/design/1262174 -->
     <sprite name="А">
         <rect x="12" y="95" w="19" h="27"/>

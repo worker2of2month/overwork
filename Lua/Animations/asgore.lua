@@ -1,13 +1,15 @@
-CreateLayer("Ugly2", "Top", false)
+CreateLayer("Ugly","Top")
+CreateLayer("Ugly2","Top")
+CreateLayer("Ugly3","Top")
 
-stalkercape = CreateSprite("stalker/stalkercape0")
-stalkerfeet = CreateSprite("stalker/stalkerfeet")
-stalkerlegs = CreateSprite("stalker/stalkerlegs")
-stalkerdress = CreateSprite("stalker/stalkerdress", "Ugly2")
-stalkertorso = CreateSprite("stalker/stalkertorso")
-stalkerhead = CreateSprite("stalker/stalkerhead")
+stalkercape = CreateSprite("stalker/stalkercape0", "Ugly")
+stalkerfeet = CreateSprite("stalker/stalkerfeet", "Ugly")
+stalkerlegs = CreateSprite("stalker/stalkerlegs", "Ugly")
+stalkerdress = CreateSprite("stalker/stalkerdress", "Ugly")
+stalkertorso = CreateSprite("stalker/stalkertorso", "Ugly")
+stalkerhead = CreateSprite("stalker/stalkerhead", "Ugly")
 
-stalkerspear = CreateSprite("stalker/Stalkerspear")
+stalkerspear = CreateSprite("stalker/Stalkerspear", "Ugly")
 
 stalkerarmr = CreateSprite("stalker/stalkerarmright")
 stalkerarml = CreateSprite("stalker/stalkerarmleft")
