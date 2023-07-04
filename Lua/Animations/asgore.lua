@@ -1,7 +1,9 @@
+CreateLayer("Ugly2", "Top", false)
+
 stalkercape = CreateSprite("stalker/stalkercape0")
 stalkerfeet = CreateSprite("stalker/stalkerfeet")
 stalkerlegs = CreateSprite("stalker/stalkerlegs")
-stalkerdress = CreateSprite("stalker/stalkerdress")
+stalkerdress = CreateSprite("stalker/stalkerdress", "Ugly2")
 stalkertorso = CreateSprite("stalker/stalkertorso")
 stalkerhead = CreateSprite("stalker/stalkerhead")
 
@@ -33,9 +35,12 @@ offset_anim_stalker = 20
 
 stalkerlegs.y = 2 
 stalkerdress.y = -2 + offset_anim_stalker
+stalkerdress.x = 0
 stalkertorso.y = -2 + offset_anim_stalker
 stalkerfeet.y = 246 + offset_anim_stalker
 stalkerfeet.x = 320
+stalkerfeet.xscale = 0.5
+stalkerfeet.yscale = 0.5
 stalkerhead.y = -4 
 
 stalkerarml.y = -50 
@@ -44,8 +49,8 @@ stalkerarmr.y = -50
 stalkerarml.x = -95
 stalkerarmr.x = 95
 
-stalkerupperarml.y = -40 + offset_anim_stalker
-stalkerupperarmr.y = -55 + offset_anim_stalker
+stalkerupperarml.y = -40
+stalkerupperarmr.y = -55
 
 stalkerupperarml.x = -10
 stalkerupperarmr.x = 0
@@ -54,7 +59,7 @@ stalkerhandl.y = -15
 stalkerhandr.y = 11 
 
 stalkerspear.x = -30
-stalkerspear.y = 68 + offset_anim_stalker
+stalkerspear.y = 68
 stalkerspear.rotation = -21
 
 stalkerhandl.x = -140
@@ -75,7 +80,7 @@ stalkerfeet.SetPivot(0.5, 0)
 stalkerlegs.SetPivot(0.5, 0)
 stalkerdress.SetPivot(0.5, 0)
 stalkertorso.SetPivot(0.5, 0)
-stalkercape.SetPivot(0.5, 0)
+stalkercape.SetPivot(0.515, -0.05)
 stalkerhead.SetPivot(0.5, 0)
 
 stalkerarml.SetPivot(0, 0)

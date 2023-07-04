@@ -4,6 +4,8 @@ last_beep_time = 0 -- время, через которое спрайт вос�
 
 warning_beep_time = 3 -- константа
 
+time_from_beggin = 0
+
 attack_number = 0 -- это - 1 = сколько копий уже было брошено
 spawn_shit_timer = 0
 
@@ -24,6 +26,11 @@ Void = CreateSprite("masks/Arena_150x170", "Ugly", -1)
 Void.MoveTo(Arena.x - 155, Arena.y + 89)
 Void2 = CreateSprite("masks/Arena_150x170", "Ugly", -1)
 Void2.MoveTo(Arena.x - 155 - 150, Arena.y + 89)
+Void3 = CreateSprite("masks/Void_sprite", "Ugly", -1)
+Void3.MoveTo(Arena.x, Arena.y * 2 + 77)
+
+Void4 = CreateSprite("masks/Arena_150x170", "Ugly", -1)
+Void4.MoveTo(Arena.x + 150, Arena.y + 85)
 
 arenaover = CreateSprite('masks/arenaover', "Ugly", -1)
 arenaover.Scale(0.765, 0.765)
@@ -34,7 +41,7 @@ arenaover.MoveTo(Arena.x + 0.4, Arena.y * 2 - 10)
 
 function Update()
 
-
+    time_from_beggin = time_from_beggin + 1
 
     if spawn_shit_timer % 7 == 0 and #emitters == 6 and #fireballs <= 100 then
         for i=1,6 do
@@ -69,8 +76,8 @@ function Update()
 
     --DEBUG(Player.y)
 
-    --spawn_shit_timer = spawn_shit_timer + 1
-    --spawntimer = spawntimer + 1
+    spawn_shit_timer = spawn_shit_timer + 1
+    spawntimer = spawntimer + 1
 
     --[[CreateLayer("void", "BelowUI", true)
     void = CreateSprite("void")
@@ -82,12 +89,12 @@ function Update()
         create_trident()
     end
 
-    if spawntimer > 45 and spawntimer < 100 and bullet.x != -15 then
+    if spawntimer > 65 and spawntimer < 100 and bullet.x != -15 then
         bullet.Move(15, 0)
         warning.Remove()
         warning_sign.Remove()
         battle_status = nil
-        if spawntimer > 46 and spawntimer < 48 then
+        if spawntimer > 70 and spawntimer < 72 then
             Audio.PlaySound("spearswing")
         end
         if bullet.x < -14 then
@@ -110,10 +117,10 @@ function firewall_configuration()
     local wall_r = {}
     local wall_l = {}
 
-    wall_l.amplitude = 0.95
-	wall_r.amplitude = 0.95
+    wall_l.amplitude = 6
+	wall_r.amplitude = 6
 
-    wall_r.init_x = -150
+    wall_r.init_x = -179
 
     wall_l.init_x = wall_r.init_x + 255
 
@@ -124,10 +131,13 @@ end
 
 function fire_wall_el_spawn(wallemitter)
 
-    local fire_wall_el = CreateProjectile("fire_wall", wallemitter.init_x, 69)
+    local offset = wallemitter.amplitude * math.cos(time_from_beggin / 40 )
+
+    DEBUG(offset)
+
+    local fire_wall_el = CreateProjectile("fire_wall", wallemitter.init_x + 5 * offset + 50, 86)
 
     fire_wall_el.SetVar("amplitude", wallemitter.amplitude)
-    fire_wall_el.SetVar("time_from_beggin", 0)
 
     table.insert(FireWall, fire_wall_el)
 
@@ -135,12 +145,12 @@ end
 
 function fire_wall_update(fire_wall_el)
 
-    local time_from_beggin = fire_wall_el.GetVar("time_from_beggin") + 1
-    fire_wall_el.SetVar("time_from_beggin", time_from_beggin)
+    --local time_from_beggin = fire_wall_el.GetVar("time_from_beggin") + 1
+    --fire_wall_el.SetVar("time_from_beggin", time_from_beggin)
 
-    local Newx = fire_wall_el.GetVar("amplitude") * math.cos(time_from_beggin / 40 )
+    --local Newx = fire_wall_el.GetVar("amplitude") * math.cos(time_from_beggin / 40 )
 
-    fire_wall_el.Move(Newx, -0.8)
+    fire_wall_el.Move(0, -0.8)
 end
 
 firewall_configuration()

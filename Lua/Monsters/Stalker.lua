@@ -2,7 +2,7 @@
 comments = {"Smells like the work\rof an enemy stand.", "Poseur is posing like his\rlife depends on it.", "Poseur's limbs shouldn't be\rmoving in this way."}
 commands = {"Act 1", "Act 2", "Act 3"}
 
-sprite = "hitbox_fire" --Always PNG. Extension is added automatically.
+sprite = "asgoreempty" --Always PNG. Extension is added automatically.
 
 name = "Stalker"
 hp = 60

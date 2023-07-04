@@ -64,17 +64,18 @@ function EncounterStarting()
 	require "Animations/asgore"
     Player.name = "Ivan"
     Audio.LoadFile("Intro")
-    BattleDialog({"[effect:none][novoice][noskip][waitall:2](Worker is cool.)[w:1000][next]"})
+    BattleDialog({"[effect:none][novoice][noskip][waitall:2][font:Russian](А)[w:1000][next]"})
+
     -- If you want to change the game state immediately, this is the place.
 end
 
 function EnemyDialogueStarting() -- Good location for setting monster dialogue depending on how the battle is going.
-    if intro then
-        enemies[1]["currentdialogue"] = {"[noskip][w:30][next]",
-	                                 "[effect:none][voice:v_fluffybuns][waitall:1]Ivan...[w:30][next]",
-									 "[effect:none][voice:v_fluffybuns][waitall:1]It was nice to meet you once again.[w:30][next]",
-                                     "[effect:none][voice:v_fluffybuns][waitall:1]Goodbye.[w:30][next]"}
-    end
+    --if intro then
+    --    enemies[1]["currentdialogue"] = {"[noskip][w:30][next]",
+	--                                 "[effect:none][voice:v_fluffybuns][waitall:1]Ivan...[w:30][next]",
+	--								 "[effect:none][voice:v_fluffybuns][waitall:1]It was nice to meet you once again.[w:30][next]",
+    --                                 "[effect:none][voice:v_fluffybuns][waitall:1]Goodbye.[w:30][next]"}
+    --end
 end
 
 function EnemyDialogueEnding()
