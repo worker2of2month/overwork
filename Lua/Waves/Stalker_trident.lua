@@ -24,8 +24,6 @@ Void = CreateSprite("masks/Arena_150x170", "Ugly", -1)
 Void.MoveTo(Arena.x - 155, Arena.y + 89)
 Void2 = CreateSprite("masks/Arena_150x170", "Ugly", -1)
 Void2.MoveTo(Arena.x - 155 - 150, Arena.y + 89)
-Void3 = CreateSprite("masks/Void_sprite", "Ugly", -1)
-Void3.MoveTo(Arena.x - 10, Arena.y * 2 + 77)
 
 arenaover = CreateSprite('masks/arenaover', "Ugly", -1)
 arenaover.Scale(0.765, 0.765)
@@ -71,8 +69,8 @@ function Update()
 
     --DEBUG(Player.y)
 
-    spawn_shit_timer = spawn_shit_timer + 1
-    spawntimer = spawntimer + 1
+    --spawn_shit_timer = spawn_shit_timer + 1
+    --spawntimer = spawntimer + 1
 
     --[[CreateLayer("void", "BelowUI", true)
     void = CreateSprite("void")
@@ -296,7 +294,6 @@ function EndingWave()
     Void.Remove()
     warning.Remove()
     Void2.Remove()
-    Void3.Remove()
     arenaover.Remove()
 end
 

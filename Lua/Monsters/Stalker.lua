@@ -1,16 +1,15 @@
 -- A basic monster script skeleton you can copy and modify for your own creations.
 comments = {"Smells like the work\rof an enemy stand.", "Poseur is posing like his\rlife depends on it.", "Poseur's limbs shouldn't be\rmoving in this way."}
 commands = {"Act 1", "Act 2", "Act 3"}
-randomdialogue = {"Check\nit\nout."}
 
-sprite = "Asgore-stalker" --Always PNG. Extension is added automatically.
+sprite = "hitbox_fire" --Always PNG. Extension is added automatically.
 
 name = "Stalker"
 hp = 60
 atk = 4
 def = 1
 check = "Do not insult its hair."
-dialogbubble = "right" -- See documentation for what bubbles you have available.
+dialogbubble = "rightwide" -- See documentation for what bubbles you have available.
 canspare = false
 cancheck = true
 xp = 10
