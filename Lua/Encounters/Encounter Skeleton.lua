@@ -24,7 +24,7 @@ intro_battle_dialog = 0
 starttime = Time.time
 
 -- A custom list with attacks to choose from. Actual selection happens in EnemyDialogueEnding(). Put here in case you want to use it.
-possible_attacks = {"Stalker_trident"}
+possible_attacks = {"Stalker_granades"}
 
 function Update()
 	currenttime = Time.time - starttime
@@ -63,7 +63,7 @@ end
 function EncounterStarting()
 	require "Animations/asgore"
     Player.name = "Ivan"
-    Audio.LoadFile("Intro")
+    Audio.LoadFile("Stalker_theme_phase1")
 	
 	stalkercape.layer = "BelowArena"
 	stalkerfeet.layer = "BelowArena"

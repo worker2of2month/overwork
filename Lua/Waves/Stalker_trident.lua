@@ -9,6 +9,8 @@ time_from_beggin = 0
 attack_number = 0 -- это - 1 = сколько копий уже было брошено
 spawn_shit_timer = 0
 
+wavy_fire_timer = 0
+
 --epsilon = 5e-4
 
 Encounter["wavetimer"] = math.huge
@@ -45,22 +47,30 @@ function Update()
 
     time_from_beggin = time_from_beggin + 1
 
-    if spawn_shit_timer % 7 == 0 and #emitters == 6 and #fireballs <= 100 then
+    if wavy_fire_timer > 15 and wavy_fire_timer % 7 == 0 and #emitters == 6 and #fireballs <= 100 and attack_number == 6 then
         for i=1,6 do
             create_fireball(emitters[i])
         end
     end
 
-    if wavy_fire_status== true and #emitters == 6 then
+    if wavy_fire_status== true and #emitters == 6 and #fireballs > 0 then
         for i = 1, #fireballs do
             update_fireball(fireballs[i])
         end
     end
 
-    if #FireWallEmitters == 2 and #FireWall <= 66 and spawn_shit_timer % 15 == 0 then
+    if #FireWallEmitters == 2 and #FireWall <= 66 and spawn_shit_timer % 15 == 0 and attack_number <= 5 then
         for i=1,2 do
             fire_wall_el_spawn(FireWallEmitters[i])
         end
+    end
+
+    if attack_number == 6 then
+        wavy_fire_timer = wavy_fire_timer + 1
+    end
+
+    if wavy_fire_timer == 404 then
+        attack_number = attack_number + 1
     end
 
     if #FireWallEmitters == 2 then
@@ -84,14 +94,16 @@ function Update()
     --[[CreateLayer("void", "BelowUI", true)
     void = CreateSprite("void")
     void.MoveToAbs(0,0)]]
+    if attack_number < 6 then
+        beep_update()
+    end
 
-    beep_update()
-    if spawntimer == 4 then
+    if spawntimer == 4  and attack_number != 6 then
         Audio.PlaySound("bwoar")
         create_trident()
     end
 
-    if spawntimer > 65 and spawntimer < 100 and bullet.x != -15 then
+    if spawntimer > 65 and spawntimer < 100 and bullet.x != -15 and attack_number < 6 then
         bullet.Move(15, 0)
         warning.Remove()
         warning_sign.Remove()
@@ -106,10 +118,11 @@ function Update()
         bullet.Move(-5, 0)
     elseif spawntimer > 100 and bullet.x == -200 then
         bullet.Remove()
-        if attack_number == 6 then 
-            EndWave()
-        end
         spawntimer = 0
+    end
+
+    if attack_number > 6 then 
+        EndWave()
     end
 
 end
@@ -134,8 +147,6 @@ end
 function fire_wall_el_spawn(wallemitter)
 
     local offset = wallemitter.amplitude * math.cos(time_from_beggin / 40 )
-
-    DEBUG(offset)
 
     local fire_wall_el = CreateProjectile("fire_wall", wallemitter.init_x + 5 * offset + 50, 86)
 
@@ -165,13 +176,13 @@ function wavy_fire_configuration(x) -- firewall_number - номер волны �
     emitter_l.amplitude = -0.95
 	emitter_r.amplitude = 0.95
 
-    emitter_r.init_y = 222 + x * 15
+    emitter_r.init_y = 333 + x * 15 + math.random(0, 55)
     emitter_r.init_x = -110 + x * 55
     emitter_r.y_velocity = -2.85
 
     emitter_r.index = #emitters + 1
 
-    emitter_l.init_y = 222 + x * 15
+    emitter_l.init_y = emitter_r.init_y
     emitter_l.init_x = -110 + x * 55
     emitter_l.y_velocity = -2.85
 
@@ -183,9 +194,9 @@ function wavy_fire_configuration(x) -- firewall_number - номер волны �
     wavy_fire_status= true 
 end
 
---for i=1,3 do
---	wavy_fire_configuration(i)
---end
+for i=1,3 do
+	wavy_fire_configuration(i)
+end
 
 function create_fireball(emitter)
 
@@ -224,7 +235,7 @@ function update_fireball(fireball)
         fireball.SetVar("amp_mul", 1/55)
         fireball.SetVar("Period", 1)
         fireball.SetVar("Period_timer", 0)
-    elseif fireball.GetVar("Period") == 1 and fireball.GetVar("Period_timer") == 5 then
+    elseif fireball.GetVar("Period") == 1 and fireball.GetVar("Period_timer") == 3 then
         fireball.SetVar("amp_mul", 1)
         fireball.SetVar("Period", 0)
     end
@@ -263,17 +274,19 @@ function create_trident()
 		offset = 0
 	end
     attack_number = attack_number + 1
-    Audio.PlaySound("Warning")
     bullet = CreateProjectile("trident_attack", -195, Player.y + offset --[[math.random(-40, 40)]], "")
     bullet.sprite.layer = "Ugly3"
     bullet.ppcollision = true
+    bullet.SetVar('type', "1hit")
 
-    beep()
-
-    warning = CreateSprite("warning/WarningTrident", "BelowPlayer", -1)
-    warning.color = {0.9, 0.9, 0.9}
-    warning.Scale(0.75, 0.75)
-    warning.MoveTo(Arena.x, 167 + bullet.y)
+    if attack_number != 6 then
+        Audio.PlaySound("Warning")
+        beep()
+        warning = CreateSprite("warning/WarningTrident", "BelowPlayer", -1)
+        warning.color = {0.9, 0.9, 0.9}
+        warning.Scale(0.75, 0.75)
+        warning.MoveTo(Arena.x, 167 + bullet.y)
+    end
 
 end 
 
@@ -314,5 +327,10 @@ function EndingWave()
 end
 
 function OnHit(bullet)
-    Player.Hurt(5) --EndWave()
+    local type = bullet.GetVar('type')
+	if type == "1hit" then
+		Player.Hurt(10)
+    else 
+        Player.Hurt(3)
+	end
 end
