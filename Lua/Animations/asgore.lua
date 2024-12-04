@@ -1,3 +1,4 @@
+
 CreateLayer("Ugly","Top")
 CreateLayer("Ugly2","Top")
 CreateLayer("Ugly3","Top")
@@ -98,26 +99,6 @@ stalkercapemark2mark = 0.5
 stalkercapemark1 = 0.5
 stalkercapemark2 = 1
 
-function Updatestalker()
-	if currenttime > stalkercapemark1 then
-		stalkercape.Set("stalker/stalkercape0")
-		stalkercapemark1 = stalkercapemark1 + (stalkercapemark1mark*2)
-	end
-	if currenttime > stalkercapemark2 then
-		stalkercape.Set("stalker/stalkercape1")
-		stalkercapemark2 = stalkercapemark2 + (stalkercapemark2mark*2)
-	end
-	
-	stalkerdress.MoveTo(stalkerdress.x,-8+(math.sin(Time.time*1.4)*1.5))
-	stalkertorso.MoveTo(stalkertorso.x,14+(math.cos(Time.time*1.7)*1.2))
-	stalkercape.MoveTo(stalkerfeet.x,stalkerfeet.y+(math.sin(Time.time*1.7)*1.2))
-	stalkerhead.MoveTo(stalkerhead.x,-4+(math.sin(Time.time*1.35)*1.5))
-	stalkerupperarml.MoveTo(stalkerupperarml.x,-40+(math.sin(Time.time*1.2)*1.6))
-	stalkerupperarmr.MoveTo(stalkerupperarmr.x,-55+(math.sin(Time.time*1.2)*1.6))
-	stalkerspear.MoveTo(stalkerspear.x,68+(math.sin(Time.time*1.35)*1.5))
-	
-	SetGlobal("speary", stalkerspear.y)
-end
 
 function Hidestalker()
 	stalkercape.alpha = 0
@@ -153,4 +134,25 @@ function Showstalker()
 	stalkerupperarml.alpha = 1
 	stalkerhandr.alpha = 1
 	stalkerhandl.alpha = 1
+end
+
+function Updatestalker()
+	if currenttime > stalkercapemark1 then
+		stalkercape.Set("stalker/stalkercape0")
+		stalkercapemark1 = stalkercapemark1 + (stalkercapemark1mark*2)
+	end
+	if currenttime > stalkercapemark2 then
+		stalkercape.Set("stalker/stalkercape1")
+		stalkercapemark2 = stalkercapemark2 + (stalkercapemark2mark*2)
+	end
+		
+	stalkerdress.MoveTo(stalkerdress.x,-8+(math.sin(Time.time*1.4)*1.5))
+	stalkertorso.MoveTo(stalkertorso.x,14+(math.cos(Time.time*1.7)*1.2))
+	stalkercape.MoveTo(stalkerfeet.x,stalkerfeet.y+(math.sin(Time.time*1.7)*1.2))
+	stalkerhead.MoveTo(stalkerhead.x,-4+(math.sin(Time.time*1.35)*1.5))
+	stalkerupperarml.MoveTo(stalkerupperarml.x,-40+(math.sin(Time.time*1.2)*1.6))
+	stalkerupperarmr.MoveTo(stalkerupperarmr.x,-55+(math.sin(Time.time*1.2)*1.6))
+	stalkerspear.MoveTo(stalkerspear.x,68+(math.sin(Time.time*1.35)*1.5))
+		
+	SetGlobal("speary", stalkerspear.y)
 end

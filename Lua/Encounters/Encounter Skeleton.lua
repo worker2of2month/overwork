@@ -3,8 +3,8 @@
 
 
 -- music = "shine_on_you_crazy_diamond" --Either OGG or WAV. Extension is added automatically. Uncomment for custom music.
---encountertext = "Hello and welcome to los pollos hermanos" --Modify as necessary. It will only be read out in the action select screen.
-nextwaves = {"Stalker_trident_easy"}
+encountertext = "[font:uidialog]Едкий запах заполняет комнату." --Modify as necessary. It will only be read out in the action select screen.
+nextwaves = {}
 wavetimer = 4.0
 arenasize = {155, 130}
 music = ""
@@ -24,7 +24,7 @@ intro_battle_dialog = 0
 starttime = Time.time
 
 -- A custom list with attacks to choose from. Actual selection happens in EnemyDialogueEnding(). Put here in case you want to use it.
-possible_attacks = {"Stalker_granades"}
+possible_attacks = {"Stalker_tridentswing"}
 
 function Update()
 	currenttime = Time.time - starttime
@@ -67,7 +67,6 @@ function EncounterStarting()
 	
 	stalkercape.layer = "BelowArena"
 	stalkerfeet.layer = "BelowArena"
-    --BattleDialog({"[effect:none][novoice][noskip][waitall:2][font:Russian](А)[w:1000][next]"})
 
     -- If you want to change the game state immediately, this is the place.
 end
@@ -75,10 +74,8 @@ end
 function EnemyDialogueStarting()
     -- Good location for setting monster dialogue depending on how the battle is going.
     --if intro then
-    --    enemies[1]["currentdialogue"] = {"[noskip][w:30][next]",
-	--                                 "[effect:none][voice:v_fluffybuns][waitall:1]Ivan...[w:30][next]",
-	--								 "[effect:none][voice:v_fluffybuns][waitall:1]It was nice to meet you once again.[w:30][next]",
-    --                                 "[effect:none][voice:v_fluffybuns][waitall:1]Goodbye.[w:30][next]"}
+        --enemies[1]["currentdialogue"] = {"[noskip][w:5][next]",
+	 --                               "[effect:none][voice:v_fluffybuns][waitall:1] Здесь должен быть очень эпичный диалог"}
     --end
 end
 
@@ -89,11 +86,19 @@ function EnemyDialogueEnding()
 
     -- Good location to fill the 'nextwaves' table with the attacks you want to have simultaneously.
     nextwaves = { possible_attacks[math.random(#possible_attacks)] }
+
+	if nextwaves[1] == "Stalker_tridentswing" then
+		Hidestalker()
+	else
+		Showstalker()
+	end
 end
 
 function DefenseEnding() --This built-in function fires after the defense round ends
     stalkercape.layer = "BelowArena"
 	stalkerfeet.layer = "BelowArena"
+
+	Showstalker()
 end
 
 function HandleSpare()
@@ -103,3 +108,4 @@ end
 function HandleItem(ItemID)
     BattleDialog({"Selected item " .. ItemID .. "."})
 end
+

@@ -173,10 +173,10 @@ function wavy_fire_configuration(x) -- firewall_number - номер волны �
     local emitter_r = {}
     local emitter_l = {}
 
-    emitter_l.amplitude = -0.95
-	emitter_r.amplitude = 0.95
+    emitter_l.amplitude = -1.5
+	emitter_r.amplitude = 1.5
 
-    emitter_r.init_y = 333 + x * 15 + math.random(0, 55)
+    emitter_r.init_y = 333 + x * 20 + math.random(0, 55)
     emitter_r.init_x = -110 + x * 55
     emitter_r.y_velocity = -2.85
 
@@ -232,7 +232,7 @@ function update_fireball(fireball)
     end]]
 
     if fireball.GetVar("init_x") == fireball.x and fireball.GetVar("Period") == 0 then 
-        fireball.SetVar("amp_mul", 1/55)
+        fireball.SetVar("amp_mul", 1/150)
         fireball.SetVar("Period", 1)
         fireball.SetVar("Period_timer", 0)
     elseif fireball.GetVar("Period") == 1 and fireball.GetVar("Period_timer") == 3 then
@@ -298,7 +298,7 @@ function beep()
 end
 
 function beep_update()
-    if battle_status != "warning" then
+    if battle_status ~= "warning" then
         return 
     end
 

@@ -42,53 +42,40 @@ function GranadesUpdate(WhichOneToUpdate, i)
 	else
 		CreateAGranadeExplosion(8, WhichOneToUpdate.x, WhichOneToUpdate.y)
 		WhichOneToUpdate.Remove()
-		granades[i] = "done" 
+		granades[i] = "done"
 	end
 	
 end
 
 function CreateAGranadeExplosion(AmountOfFireballs, ExplosionX, ExplosionY)
 	for i=1,AmountOfFireballs do
-		local coef = 0 -- нужен, чтобы не допускать горизонтальных линий и в целях ОДЗ
 	
-		if AmountOfFireballs == 4 then
-			
-			if i % 2 == 0 then
-				coef = i + 1
-			else
-				coef = i
-			end
+		local fireball = CreateProjectile("firebullet0", ExplosionX, ExplosionY)
+		
+		
+		local coef = 0 -- нужен, чтобы не допускать горизонтальных линий и в целях ОДЗ
+		
+		if i % 2 == 0 then
+			coef = i + 1
 		else
 			coef = i
 		end
 		
-		local TanAgleArg = (coef * math.pi / (AmountOfFireballs / 2))
-
-		local fireball = CreateProjectile("firebullet0", ExplosionX, ExplosionY)
-		
-		if TanAgleArg == math.pi / 2 or TanAgleArg == 3 * math.pi / 2 then
-			if TanAgleArg == math.pi / 2 then
-				
-			else
-			
-			end
+		if i <= AmountOfFireballs / 2 then
+			local DirectionX = 1
+			fireball.SetVar("DirectionX", DirectionX)
 		else
-			if (TanAgleArg == math.pi or TanAgleArg == 2 math.pi) then
-				fireball.SetVar("TanAngle", 0)
-			else
-				local TanAngle = math.tan(TanAgleArg)
-				fireball.SetVar("TanAngle", TanAngle)
-			end
-			
-			if (TanAgleArg > math.pi / 2 and TanAgleArg < 3 * math.pi / 2) or TanAgleArg > 3 * math.pi / 2 then
-				local DirectionX = 1
-				fireball.SetVar("DirectionX", DirectionX)
-			else
-				local DirectionX = -1
-				fireball.SetVar("DirectionX", DirectionX)
-			end
+			local DirectionX = -1
+			fireball.SetVar("DirectionX", DirectionX)
 		end
 		
+		local TanAngle = math.tan(coef *  math.pi / AmountOfFireballs)
+		
+		fireball.SetVar("TanAngle", TanAngle)
+		
+		
+		
+		--fireball.SetVar("InitialX", ExplosionX)
 		fireball.SetVar("InitialY", ExplosionY)
 		
 		table.insert(fireballsFromExplosions, fireball)
@@ -98,15 +85,15 @@ end
 function FireballsUpdate(WhichOneToUpdate, i)
 
 	if math.abs(WhichOneToUpdate.x) > Arena.x + 400 or math.abs(WhichOneToUpdate.y) > Arena.y + 400 then
-		--WhichOneToUpdate.Remove()
-		--DEBUG("deleted")
-		--fireballsFromExplosions[i] = "done"
+		WhichOneToUpdate.Remove()
+		DEBUG("deleted")
+		fireballsFromExplosions[i] = "done"
 	else
 		local InitialY = WhichOneToUpdate.GetVar("InitialY")
 		local DirectionX = WhichOneToUpdate.GetVar("DirectionX")
 		local TanAngle = WhichOneToUpdate.GetVar("TanAngle")
 		
-		local NewX = WhichOneToUpdate.x + 1 * DirectionX
+		local NewX = WhichOneToUpdate.x + 4 * DirectionX
 		local NewY = InitialY + NewX * TanAngle
 		
 		WhichOneToUpdate.MoveTo(NewX, NewY)
@@ -127,5 +114,5 @@ end
 	table.remove(temptable)
 end]]
 
---CreateGranade(200, -100, 10)
-CreateGranade(300, 50, 10)
+CreateGranade(200, -100, 10)
+CreateGranade(400, -100, 10)
