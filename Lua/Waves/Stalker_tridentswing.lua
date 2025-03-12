@@ -186,16 +186,16 @@ function Update()
             Stalker = CreateSprite("stalker/asgore_spearhold" .. GetDirection(WhatBlinkThisIs), "Top")
             Stalker.Scale(2, 2)
             Stalker.SetPivot(0.5, 0)
-            Stalker.MoveTo(320, 220)
+            Stalker.MoveTo(320, 235)
             trident = CreateSprite("stalker/spear_spearhold" .. GetDirection(WhatBlinkThisIs), "Top")
             trident.Scale(2, 2)
             trident.SetPivot(0.5, 0)
-            trident.MoveTo(320, 220)
+            trident.MoveTo(320, 235)
             trident.color = flashcolors[flashc[WhatBlinkThisIs]]
             hands = CreateSprite("stalker/asgore_spearhold_hands" .. GetDirection(WhatBlinkThisIs), "Top")
             hands.Scale(2, 2)
             hands.SetPivot(0.5, 0)
-            hands.MoveTo(320, 220)
+            hands.MoveTo(320, 235)
         end
         if a == b then --- замах
         end
@@ -221,19 +221,19 @@ function Update()
                 Stalker = CreateSprite("stalker/asgore_spearhold" .. GetDirection(WhatBlinkThisIs + 1))
                 Stalker.Scale(2, 2)
                 Stalker.SetPivot(0.5, 0)
-                Stalker.MoveTo(320, 220)
+                Stalker.MoveTo(320, 235)
 
                 trident.Remove()
                 trident = CreateSprite("stalker/spear_spearhold" .. GetDirection(WhatBlinkThisIs + 1), "Top")
                 trident.Scale(2, 2)
                 trident.SetPivot(0.5, 0)
-                trident.MoveTo(320, 220)
+                trident.MoveTo(320, 235)
                 trident.color = flashcolors[flashc[WhatBlinkThisIs]]
 
                 hands = CreateSprite("stalker/asgore_spearhold_hands" .. GetDirection(WhatBlinkThisIs + 1), "Top")
                 hands.Scale(2, 2)
                 hands.SetPivot(0.5, 0)
-                hands.MoveTo(320, 220)
+                hands.MoveTo(320, 235)
 
                 BlinkTimer = 0
 
@@ -298,29 +298,29 @@ function Update()
 
 		hands.Remove()
 		
-		trident_left.MoveTo(320, 220)
+		trident_left.MoveTo(320, 235)
 	    	
-		Stalker_left.MoveTo(320, 220)
+		Stalker_left.MoveTo(320, 235)
 	    
-		hands_left.MoveTo(320, 220)
+		hands_left.MoveTo(320, 235)
 		    
-		Stalker_right.MoveTo(320, 220)
+		Stalker_right.MoveTo(320, 235)
 
-		trident_right.MoveTo(320, 220)
+		trident_right.MoveTo(320, 235)
 		   
-		hands_right.MoveTo(320, 220)
+		hands_right.MoveTo(320, 235)
 	    else
-	    	trident_left.MoveTo(320 - 190, 220)
+	    	trident_left.MoveTo(320 - 190, 235)
 	    	
-		Stalker_left.MoveTo(320 - 190, 220)
+		Stalker_left.MoveTo(320 - 190, 235)
 	    
-		hands_left.MoveTo(320 - 190, 220)
+		hands_left.MoveTo(320 - 190, 235)
 		    
-		Stalker_right.MoveTo(320 + 190, 220)
+		Stalker_right.MoveTo(320 + 190, 235)
 
-		trident_right.MoveTo(320 + 190, 220)
+		trident_right.MoveTo(320 + 190, 235)
 		   
-		hands_right.MoveTo(320 + 190, 220)
+		hands_right.MoveTo(320 + 190, 235)
             end
         end
         if BlinkTimer >= TimeBetweenBlinks and Stalker_left.x != 320 - 190 and WhatBlinkThisIs == NumOfStandartBlinks + 1 then
@@ -363,37 +363,37 @@ function Update()
                 Stalker_right = CreateSprite("stalker/asgore_spearhold" .. GetDirection(WhatBlinkThisIs + 1))
                 Stalker_right.Scale(2, 2)
                 Stalker_right.SetPivot(0.5, 0)
-                Stalker_right.MoveTo(320 + 190, 220)
+                Stalker_right.MoveTo(320 + 190, 235)
 
                 trident_right.Remove()
                 trident_right = CreateSprite("stalker/spear_spearhold" .. GetDirection(WhatBlinkThisIs + 1), "Top")
                 trident_right.Scale(2, 2)
                 trident_right.SetPivot(0.5, 0)
-                trident_right.MoveTo(320 + 190, 220)
+                trident_right.MoveTo(320 + 190, 235)
                 trident_right.color = flashcolors[flashc[WhatBlinkThisIs + 1]]
 
                 hands_right = CreateSprite("stalker/asgore_spearhold_hands" .. GetDirection(WhatBlinkThisIs + 1), "Top")
                 hands_right.Scale(2, 2)
                 hands_right.SetPivot(0.5, 0)
-                hands_right.MoveTo(320 + 190, 220)
+                hands_right.MoveTo(320 + 190, 235)
                 
                 Stalker_left.Remove()
                 Stalker_left = CreateSprite("stalker/asgore_spearhold" .. GetDirection(WhatBlinkThisIs + 1))
                 Stalker_left.Scale(2, 2)
                 Stalker_left.SetPivot(0.5, 0)
-                Stalker_left.MoveTo(320 - 190, 220)
+                Stalker_left.MoveTo(320 - 190, 235)
 
                 trident_left.Remove()
                 trident_left = CreateSprite("stalker/spear_spearhold" .. GetDirection(WhatBlinkThisIs + 1), "Top")
                 trident_left.Scale(2, 2)
                 trident_left.SetPivot(0.5, 0)
-                trident_left.MoveTo(320 - 190, 220)
+                trident_left.MoveTo(320 - 190, 235)
                 trident_left.color = flashcolors[flashc[WhatBlinkThisIs]]
 
                 hands_left = CreateSprite("stalker/asgore_spearhold_hands" .. GetDirection(WhatBlinkThisIs + 1), "Top")
                 hands_left.Scale(2, 2)
                 hands_left.SetPivot(0.5, 0)
-                hands_left.MoveTo(320 - 190, 220)
+                hands_left.MoveTo(320 - 190, 235)
                 
                 if WhatBlinkThisIs != NumOfStandartBlinks + NumOfComplexBlinks then
                 	BlinkTimer = 0
@@ -450,23 +450,23 @@ function EndingWave()
 		Stalker.Remove()
 		trident.Remove()
 		hands.Remove()
-        end
+    end
 end
 
 function OnHit(bullet)
 	if blinkstage == 5 or blinkstage == 4  then
 	 	local color = bullet.GetVar("color")
 		if color == 1 then
-                	if not Player.isMoving then
-                    		Player.Hurt(5)
-                        end
-            	elseif color == 2 then
-                	if Player.isMoving then
-                	    	Player.Hurt(5)
-                	end
-                else
-                	Player.Hurt(20)
-            	end
+            if not Player.isMoving then
+                	Player.Hurt(5, 0.5)
+                end
+        elseif color == 2 then
+            if Player.isMoving then
+            	Player.Hurt(5, 0.5)
+            end
+        else
+            Player.Hurt(19, 1.7)
+        end
 	end
 end
 

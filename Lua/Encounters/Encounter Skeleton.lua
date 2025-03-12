@@ -87,7 +87,7 @@ function EnemyDialogueEnding()
     -- Good location to fill the 'nextwaves' table with the attacks you want to have simultaneously.
     nextwaves = { possible_attacks[math.random(#possible_attacks)] }
 
-	if nextwaves[1] == "Stalker_tridentswing" then
+	if nextwaves[1] == "Stalker_tridentswing" or nextwaves[1] == "Stalker_tridentswing_2" then
 		Hidestalker()
 	else
 		Showstalker()

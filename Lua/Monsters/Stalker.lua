@@ -5,7 +5,7 @@ commands = {"Act 1", "Act 2", "Act 3"}
 sprite = "asgoreempty" --Always PNG. Extension is added automatically.
 
 name = "Stalker"
-hp = 60
+hp = 6000
 atk = 4
 def = 1
 check = "Do not insult its hair."
