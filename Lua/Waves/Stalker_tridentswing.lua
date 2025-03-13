@@ -1,4 +1,3 @@
-
 require "GlobalAnimFunc"
 Stalker = CreateProjectileAbs("stalker/tridentswing", 320, 360, "BelowArena")
 Stalker.sprite.xscale = 0.34
@@ -6,7 +5,7 @@ Stalker.sprite.yscale = 0.34
 
 Encounter["wavetimer"] = math.huge
 
-Arena.Resize(150,150)
+Arena.Resize(150, 150)
 
 --- константы
 from_flash_to_blink = 70
@@ -29,16 +28,16 @@ AnimSwing = 0 --- номер фрейма анимации удара трезу
 --- таблички
 flashcolors = {{1.0, 0.65, 0.0}, {0.25, 1.0, 1.0}, {200, 0, 0}}
 flashc = {} --- отвечает за логику цвета обычного сверк. глаза
-for i=1,NumOfStandartBlinks do
+for i = 1, NumOfStandartBlinks do
     flashc[i] = math.random(1, 2)
 end
-for i=NumOfStandartBlinks + 1,NumOfStandartBlinks + NumOfComplexBlinks + 1 do
+for i = NumOfStandartBlinks + 1, NumOfStandartBlinks + NumOfComplexBlinks + 1 do
     if i == NumOfStandartBlinks + 1 then
-    	flashc[i] = math.random(1, 3)
+        flashc[i] = math.random(1, 3)
     elseif flashc[i - 1] == 3 then
-    	flashc[i] = math.random(1, 2)
+        flashc[i] = math.random(1, 2)
     else
-    	flashc[i] = 3
+        flashc[i] = 3
     end
 end
 
@@ -47,26 +46,26 @@ end
 function Update()
     begin_timer = begin_timer + 1
     Hidestalker()
-    if(blinkstage == 0) then
+    if (blinkstage == 0) then
         if begin_timer == 1 then
             Audio.PlaySound("blink")
             whiteover = CreateProjectileAbs("bgwhite", 320, 240)
             whiteover.sprite.alpha = 1
             blinkstage = 1
         end
-    elseif(blinkstage == 1) then
-        if(whiteover.isactive) then
+    elseif (blinkstage == 1) then
+        if (whiteover.isactive) then
             whiteover.sprite.alpha = whiteover.sprite.alpha - 0.045
-            if(whiteover.sprite.alpha == 0) then
+            if (whiteover.sprite.alpha == 0) then
                 whiteover.Remove()
             end
         end
-        if(begin_timer >= from_flash_to_blink) then
+        if (begin_timer >= from_flash_to_blink) then
             blinkstage = 2
         end
-    elseif(blinkstage == 2) then
+    elseif (blinkstage == 2) then
         BlinkTimer = BlinkTimer + 1
-        if (BlinkTimer == TimeBetweenBlinks and WhatBlinkThisIs <= NumOfStandartBlinks)  then
+        if (BlinkTimer == TimeBetweenBlinks and WhatBlinkThisIs <= NumOfStandartBlinks) then
             WhatBlinkThisIs = WhatBlinkThisIs + 1 --- обновляет номер сверк. глаза
             if WhatBlinkThisIs == NumOfStandartBlinks + NumOfComplexBlinks then
                 Audio.PlaySound("eyeflash_final")
@@ -80,7 +79,7 @@ function Update()
             eyeflash.Scale(1, 1)
             eyeflash.color = flashcolors[flashc[WhatBlinkThisIs]]
 
-            if(WhatBlinkThisIs % 2 == 0) then
+            if (WhatBlinkThisIs % 2 == 0) then
                 eyeflash.MoveTo(335, 425)
             else
                 eyeflash.MoveTo(335 - 22, 425)
@@ -88,11 +87,11 @@ function Update()
 
             if WhatBlinkThisIs == NumOfStandartBlinks + NumOfComplexBlinks then
                 eyeflash.SetAnimation({"stalker/eyeflash1", "stalker/eyeflash2", "stalker/eyeflash3", "stalker/eyeflash3",
-                                   "stalker/eyeflash4", "stalker/eyeflash5", "empty"}, SpeedOfBlinks * 2)
-		Audio.PlaySound("Warning_2")
+                "stalker/eyeflash4", "stalker/eyeflash5", "empty"}, SpeedOfBlinks * 2)
+                Audio.PlaySound("Warning_2")
             else
                 eyeflash.SetAnimation({"stalker/normal_eyeflash1", "stalker/normal_eyeflash2", "stalker/normal_eyeflash3",
-                                       "stalker/normal_eyeflash3", "stalker/normal_eyeflash4", "stalker/normal_eyeflash5", "empty"}, SpeedOfBlinks)
+                "stalker/normal_eyeflash3", "stalker/normal_eyeflash4", "stalker/normal_eyeflash5", "empty"}, SpeedOfBlinks)
             end
         end
         if BlinkTimer >= TimeBetweenBlinks then
@@ -100,7 +99,7 @@ function Update()
                 eyeflash.Remove()
                 BlinkTimer = 0
                 if WhatBlinkThisIs == NumOfStandartBlinks then
-                    if (NumOfComplexBlinks > 0 ) then
+                    if (NumOfComplexBlinks > 0) then
                         blinkstage = 3
                     else
                         blinkstage = 4
@@ -126,7 +125,6 @@ function Update()
             eyeflash.MoveTo(335, 425) ---RIGHT
             eyeflash2.MoveTo(335 - 22, 425)
 
-
         --[[if (WhatBlinkThisIs == NumOfStandartBlinks + NumOfComplexBlinks ) then
             if Player.x <= 0 then
                 eyeflash.MoveTo(335, 425)
@@ -145,20 +143,20 @@ function Update()
             end
         end]]
 
-		if WhatBlinkThisIs == NumOfComplexBlinks + NumOfStandartBlinks then
-            		eyeflash2.SetAnimation({"stalker/eyeflash1", "stalker/eyeflash2", "stalker/eyeflash3", "stalker/eyeflash3",
-            		"stalker/eyeflash4", "stalker/eyeflash5", "stalker/eyeflash5", "stalker/normal_eyeflash5", "empty"}, SpeedOfBlinks * 2)
-            		eyeflash.SetAnimation({"stalker/normal_eyeflash1", "stalker/eyeflash1", "stalker/eyeflash3", "stalker/eyeflash3",
-            		"stalker/normal_eyeflash3", "stalker/normal_eyeflash4", "stalker/normal_eyeflash5", "stalker/normal_eyeflash5", "empty"}, SpeedOfBlinks * 2)
-            		eyeflash.rotation = 45
-            		eyeflash2.rotation = 25
-            		Audio.PlaySound("Warning_2")
-		else
-            		eyeflash.SetAnimation({"stalker/normal_eyeflash1", "stalker/normal_eyeflash2", "stalker/normal_eyeflash3",
-            		"stalker/normal_eyeflash3", "stalker/normal_eyeflash4", "stalker/normal_eyeflash5", "stalker/normal_eyeflash5", "stalker/normal_eyeflash5", "empty"}, SpeedOfBlinks * 2)
-            		eyeflash2.SetAnimation({"stalker/eyeflash1", "stalker/eyeflash2", "stalker/eyeflash3", "stalker/eyeflash3",
-            		"stalker/eyeflash4", "stalker/eyeflash5", "stalker/eyeflash5", "stalker/normal_eyeflash5", "empty"}, SpeedOfBlinks * 2)
-            	end
+            if WhatBlinkThisIs == NumOfComplexBlinks + NumOfStandartBlinks then
+                eyeflash2.SetAnimation({"stalker/eyeflash1", "stalker/eyeflash2", "stalker/eyeflash3", "stalker/eyeflash3",
+                "stalker/eyeflash4", "stalker/eyeflash5", "stalker/eyeflash5", "stalker/normal_eyeflash5", "empty"}, SpeedOfBlinks * 2)
+                eyeflash.SetAnimation({"stalker/normal_eyeflash1", "stalker/eyeflash1", "stalker/eyeflash3", "stalker/eyeflash3",
+                "stalker/normal_eyeflash3", "stalker/normal_eyeflash4", "stalker/normal_eyeflash5", "stalker/normal_eyeflash5", "empty"}, SpeedOfBlinks * 2)
+                eyeflash.rotation = 45
+                eyeflash2.rotation = 25
+                Audio.PlaySound("Warning_2")
+            else
+                eyeflash.SetAnimation({"stalker/normal_eyeflash1", "stalker/normal_eyeflash2", "stalker/normal_eyeflash3",
+                "stalker/normal_eyeflash3", "stalker/normal_eyeflash4", "stalker/normal_eyeflash5", "stalker/normal_eyeflash5", "stalker/normal_eyeflash5", "empty"}, SpeedOfBlinks * 2)
+                eyeflash2.SetAnimation({"stalker/eyeflash1", "stalker/eyeflash2", "stalker/eyeflash3", "stalker/eyeflash3",
+                "stalker/eyeflash4", "stalker/eyeflash5", "stalker/eyeflash5", "stalker/normal_eyeflash5", "empty"}, SpeedOfBlinks * 2)
+            end
         end
         if BlinkTimer >= TimeBetweenBlinks + 15 then
             if eyeflash2.currentframe == 9 then
@@ -172,13 +170,13 @@ function Update()
                 end
             end
         end
-    elseif(blinkstage == 4) then
+    elseif (blinkstage == 4) then
         BlinkTimer = BlinkTimer + 1
         if (BlinkTimer == TimeBetweenBlinks) then --- ждёт
-	    if WhatBlinkThisIs != NumOfStandartBlinks + NumOfComplexBlinks then
-	    	WhatBlinkThisIs = WhatBlinkThisIs + 1
+            if WhatBlinkThisIs ~= NumOfStandartBlinks + NumOfComplexBlinks then
+                WhatBlinkThisIs = WhatBlinkThisIs + 1
             end
-            if WhatBlinkThisIs > 1 then 
+            if WhatBlinkThisIs > 1 then
                 trident.Remove()
                 hands.Remove()
             end
@@ -201,7 +199,7 @@ function Update()
         end
         if BlinkTimer == TimeBetweenBlinks + 15 then --- удар анимация
             Audio.PlaySound("spearswing")
-            Stalker.SetAnimation({"stalker/asgore_spearhold" .. GetDirection(WhatBlinkThisIs), "stalker/asgore_spearswing", "stalker/asgore_spearswing" .. GetDirection(WhatBlinkThisIs + 1),
+            Stalker.SetAnimation({"stalker/asgore_spearhold" .. GetDirection(WhatBlinkThisIs), "stalker/asgore_spearswing", "stalker/asgore_spearswing", "stalker/asgore_spearswing" .. GetDirection(WhatBlinkThisIs + 1),
             "stalker/asgore_spearhold" .. GetDirection(WhatBlinkThisIs + 1), "empty"}, SpeedOfBlinks)
 
             trident.Remove()
@@ -240,9 +238,9 @@ function Update()
                 if WhatBlinkThisIs == NumOfStandartBlinks then
                     if NumOfComplexBlinks > 0 then
                         Arena.Resize(Arena.width * 2, Arena.height)
-                    	blinkstage = 5
-                    	BlinkTimer = 0
-                    	Player.speed = 200
+                        blinkstage = 5
+                        BlinkTimer = 0
+                        Player.speed = 200
                     else
                         blinkstage = 6
                     end
@@ -256,13 +254,13 @@ function Update()
 
             Audio.PlaySound("pierce")
             
-            if WhatBlinkThisIs != NumOfStandartBlinks + 1 then
-            	trident_right.Remove()
-            	hands_right.Remove()
-            	Stalker_right.Remove()
-            	Stalker_left.Remove()
-            	hands_left.Remove()
-            	trident_left.Remove()
+            if WhatBlinkThisIs ~= NumOfStandartBlinks + 1 then
+                trident_right.Remove()
+                hands_right.Remove()
+                Stalker_right.Remove()
+                Stalker_left.Remove()
+                hands_left.Remove()
+                trident_left.Remove()
             end
             
             trident_right = CreateSprite("stalker/spear_spearhold" .. GetDirection(WhatBlinkThisIs), "Top")
@@ -270,60 +268,48 @@ function Update()
             trident_right.SetPivot(0.5, 0)
             trident_right.color = flashcolors[flashc[WhatBlinkThisIs + 1]]
 
-	    hands_right = CreateSprite("stalker/asgore_spearhold_hands" .. GetDirection(WhatBlinkThisIs), "Top")
+            hands_right = CreateSprite("stalker/asgore_spearhold_hands" .. GetDirection(WhatBlinkThisIs), "Top")
             hands_right.Scale(2, 2)
             hands_right.SetPivot(0.5, 0)
+                
+            Stalker_right = CreateSprite("stalker/asgore_spearhold" .. GetDirection(WhatBlinkThisIs), "Top")
+            Stalker_right.Scale(2, 2)
+            Stalker_right.SetPivot(0.5, 0)
             
-	    Stalker_right = CreateSprite("stalker/asgore_spearhold" .. GetDirection(WhatBlinkThisIs), "Top")
-	    Stalker_right.Scale(2, 2)
-	    Stalker_right.SetPivot(0.5, 0)
-	    
-	    hands_left = CreateSprite("stalker/asgore_spearhold_hands" .. GetDirection(WhatBlinkThisIs), "Top")
-	    hands_left.Scale(2, 2)
+            hands_left = CreateSprite("stalker/asgore_spearhold_hands" .. GetDirection(WhatBlinkThisIs), "Top")
+            hands_left.Scale(2, 2)
             hands_left.SetPivot(0.5, 0)
-            
+                
             trident_left = CreateSprite("stalker/spear_spearhold" .. GetDirection(WhatBlinkThisIs), "Top")
             trident_left.Scale(2, 2)
             trident_left.SetPivot(0.5, 0)
-	    trident_left.color = flashcolors[flashc[WhatBlinkThisIs]]
-	    
-	    Stalker_left = CreateSprite("stalker/asgore_spearhold" .. GetDirection(WhatBlinkThisIs), "Top")
-	    Stalker_left.Scale(2, 2)
-	    Stalker_left.SetPivot(0.5, 0)
-	    
+            trident_left.color = flashcolors[flashc[WhatBlinkThisIs]]
+            
+            Stalker_left = CreateSprite("stalker/asgore_spearhold" .. GetDirection(WhatBlinkThisIs), "Top")
+            Stalker_left.Scale(2, 2)
+            Stalker_left.SetPivot(0.5, 0)
+            
             if WhatBlinkThisIs == NumOfStandartBlinks + 1 then --Азгор раздваивается
-		Stalker.Remove()
-		   
-		trident.Remove()
-
-		hands.Remove()
-		
-		trident_left.MoveTo(320, 235)
-	    	
-		Stalker_left.MoveTo(320, 235)
-	    
-		hands_left.MoveTo(320, 235)
-		    
-		Stalker_right.MoveTo(320, 235)
-
-		trident_right.MoveTo(320, 235)
-		   
-		hands_right.MoveTo(320, 235)
-	    else
-	    	trident_left.MoveTo(320 - 190, 235)
-	    	
-		Stalker_left.MoveTo(320 - 190, 235)
-	    
-		hands_left.MoveTo(320 - 190, 235)
-		    
-		Stalker_right.MoveTo(320 + 190, 235)
-
-		trident_right.MoveTo(320 + 190, 235)
-		   
-		hands_right.MoveTo(320 + 190, 235)
+                Stalker.Remove()
+                trident.Remove()
+                hands.Remove()
+                    
+                trident_left.MoveTo(320, 235)
+                Stalker_left.MoveTo(320, 235)
+                hands_left.MoveTo(320, 235)
+                Stalker_right.MoveTo(320, 235)
+                trident_right.MoveTo(320, 235)
+                hands_right.MoveTo(320, 235)
+            else
+                trident_left.MoveTo(320 - 190, 235)
+                Stalker_left.MoveTo(320 - 190, 235)
+                hands_left.MoveTo(320 - 190, 235)
+                Stalker_right.MoveTo(320 + 190, 235)
+                trident_right.MoveTo(320 + 190, 235)
+                hands_right.MoveTo(320 + 190, 235)
             end
         end
-        if BlinkTimer >= TimeBetweenBlinks and Stalker_left.x != 320 - 190 and WhatBlinkThisIs == NumOfStandartBlinks + 1 then
+        if BlinkTimer >= TimeBetweenBlinks and Stalker_left.x ~= 320 - 190 and WhatBlinkThisIs == NumOfStandartBlinks + 1 then
             Stalker_left.Move(-10, 0)
             trident_left.Move(-10, 0)
             hands_left.Move(-10, 0)
@@ -332,7 +318,7 @@ function Update()
             trident_right.Move(10, 0)
             hands_right.Move(10, 0)
         end
-        if BlinkTimer == TimeBetweenBlinks + 50 and WhatBlinkThisIs != NumOfStandartBlinks + NumOfComplexBlinks + 1 then --- анимация двух ударов
+        if BlinkTimer == TimeBetweenBlinks + 50 and WhatBlinkThisIs ~= NumOfStandartBlinks + NumOfComplexBlinks + 1 then --- анимация двух ударов
             Audio.PlaySound("spearswing")
             
             Stalker_left.SetAnimation({"stalker/asgore_spearhold" .. GetDirection(WhatBlinkThisIs), "stalker/asgore_spearswing" .. GetDirection(WhatBlinkThisIs + 1),
@@ -348,7 +334,7 @@ function Update()
             trident_right.Remove()
             trident_right = CreateProjectileAbs("stalker/spear_spearswing", 320 + 190, 270)
             trident_right.sprite.color = flashcolors[flashc[WhatBlinkThisIs + 1]]
-            trident_right.SetVar('color', flashc[WhatBlinkThisIs +1 ])
+            trident_right.SetVar('color', flashc[WhatBlinkThisIs + 1])
 
             hands_right.Remove()
             hands_left.Remove()
@@ -395,83 +381,83 @@ function Update()
                 hands_left.SetPivot(0.5, 0)
                 hands_left.MoveTo(320 - 190, 235)
                 
-                if WhatBlinkThisIs != NumOfStandartBlinks + NumOfComplexBlinks then
-                	BlinkTimer = 0
+                if WhatBlinkThisIs ~= NumOfStandartBlinks + NumOfComplexBlinks then
+                    BlinkTimer = 0
                 else
-                	blinkstage = 6
-                	BlinkTimer = 0
+                    blinkstage = 6
+                    BlinkTimer = 0
                 end
             end
         end
         --[[ if BlinkTimer >= TimeBetweenBlinks and WhatBlinkThisIs == NumOfStandartBlinks + NumOfComplexBlinks then ---Азгор сдвигается
-        	if Stalker_left.x != 320 then
-            		Stalker_left.Move(10, 0)
-            		trident_left.Move(10, 0)
-            		hands_left.Move(10, 0)
+            if Stalker_left.x ~= 320 then
+                Stalker_left.Move(10, 0)
+                trident_left.Move(10, 0)
+                hands_left.Move(10, 0)
 
-           	 	Stalker_right.Move(-10, 0)
-            		trident_right.Move(-10, 0)
-            		hands_right.Move(-10, 0)
-        	elseif Stalker_left.x == 320 then
-            		EndWave()
-        	end
+                Stalker_right.Move(-10, 0)
+                trident_right.Move(-10, 0)
+                hands_right.Move(-10, 0)
+            elseif Stalker_left.x == 320 then
+                EndWave()
+            end
         end ]]--
     elseif blinkstage == 6 then
-    	BlinkTimer = BlinkTimer + 1
-    	
-	if NumOfComplexBlinks > 0 and Stalker_left.x != 320 then
-            	Stalker_left.Move(10, 0)
-            	trident_left.Move(10, 0)
-            	hands_left.Move(10, 0)
-
-           	Stalker_right.Move(-10, 0)
-            	trident_right.Move(-10, 0)
-            	hands_right.Move(-10, 0)
-        --elseif Stalker_left.x == 320 then
+        BlinkTimer = BlinkTimer + 1
         
+        if NumOfComplexBlinks > 0 and Stalker_left.x ~= 320 then
+            Stalker_left.Move(10, 0)
+            trident_left.Move(10, 0)
+            hands_left.Move(10, 0)
+
+            Stalker_right.Move(-10, 0)
+            trident_right.Move(-10, 0)
+            hands_right.Move(-10, 0)
+            --elseif Stalker_left.x == 320 then
+            
         end
-            		
-    	if BlinkTimer == 60 then
-    		EndWave()
-    	end
+
+        if BlinkTimer == 60 then
+            EndWave()
+        end
     end
 end
 
 function EndingWave() 
-	if NumOfComplexBlinks > 0 then
-		trident_right.Remove()
-		hands_right.Remove()
-		Stalker_right.Remove()
-		Stalker_left.Remove()
-		hands_left.Remove()
-		trident_left.Remove()
-		Player.speed = 120
-	else
-		Stalker.Remove()
-		trident.Remove()
-		hands.Remove()
+    if NumOfComplexBlinks > 0 then
+        trident_right.Remove()
+        hands_right.Remove()
+        Stalker_right.Remove()
+        Stalker_left.Remove()
+        hands_left.Remove()
+        trident_left.Remove()
+        Player.speed = 120
+    else
+        Stalker.Remove()
+        trident.Remove()
+        hands.Remove()
     end
 end
 
 function OnHit(bullet)
-	if blinkstage == 5 or blinkstage == 4  then
-	 	local color = bullet.GetVar("color")
-		if color == 1 then
+    if blinkstage == 5 or blinkstage == 4 then
+        local color = bullet.GetVar("color")
+        if color == 1 then
             if not Player.isMoving then
-                	Player.Hurt(5, 0.5)
-                end
+                Player.Hurt(5, 0.5)
+            end
         elseif color == 2 then
             if Player.isMoving then
-            	Player.Hurt(5, 0.5)
+                Player.Hurt(5, 0.5)
             end
         else
             Player.Hurt(19, 1.7)
         end
-	end
+    end
 end
 
 function GetDirection(swing)
-    if(swing % 2 == 0) then
+    if (swing % 2 == 0) then
         return "left"
     else
         return "right"
