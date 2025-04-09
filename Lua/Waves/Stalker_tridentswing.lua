@@ -5,7 +5,8 @@ Stalker.sprite.yscale = 0.34
 
 Encounter["wavetimer"] = math.huge
 
-Arena.Resize(150, 150)
+Arena.Resize(150, 100)
+Arena.MoveTo(Arena.x, Arena.y + 50, true, false)
 
 --- константы
 from_flash_to_blink = 70
@@ -293,6 +294,9 @@ function Update()
                 Stalker.Remove()
                 trident.Remove()
                 hands.Remove()
+
+                Arena.Resize(150, 20)
+                Arena.MoveTo(Arena.x, Arena.y + 50, false, false)
                     
                 trident_left.MoveTo(320, 235)
                 Stalker_left.MoveTo(320, 235)
@@ -327,12 +331,12 @@ function Update()
             "stalker/asgore_spearhold" .. GetDirection(WhatBlinkThisIs + 1), "empty"}, SpeedOfBlinks * 1.5)
 
             trident_left.Remove()
-            trident_left = CreateProjectileAbs("stalker/spear_spearswing", 320 - 190, 270)
+            trident_left = CreateProjectileAbs("stalker/spear_spearswing", 320 - 180, 270)
             trident_left.sprite.color = flashcolors[flashc[WhatBlinkThisIs]]
             trident_left.SetVar('color', flashc[WhatBlinkThisIs])
 
             trident_right.Remove()
-            trident_right = CreateProjectileAbs("stalker/spear_spearswing", 320 + 190, 270)
+            trident_right = CreateProjectileAbs("stalker/spear_spearswing", 320 + 180, 270)
             trident_right.sprite.color = flashcolors[flashc[WhatBlinkThisIs + 1]]
             trident_right.SetVar('color', flashc[WhatBlinkThisIs + 1])
 
@@ -451,7 +455,11 @@ function OnHit(bullet)
                 Player.Hurt(5, 0.5)
             end
         else
-            Player.Hurt(19, 1.7)
+            if Player.hp == 1 then
+                Player.Hurt(1, 1.7) --dead
+            else
+                Player.Hurt(Player.hp - 1, 1.7)
+            end
         end
     end
 end

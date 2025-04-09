@@ -1,0 +1,68 @@
+[[KyShaders v1.0 Documentation]]
+
+Syntax:
+VariableName (Type) [DefaultValue] - Explanation
+Note that all keywords are disabled by default, incase you didn't know that.
+If a [Shader]'s name has an (S) next to it, it is meant to be applied to the screen, however, like any shader, it can be applied to any sprite aswell. It might just not... look good.
+
+Common Keywords:
+NO_PIXEL_SNAP - Prevents pixel snapping.
+NO_WRAP - Prevents wrapping.
+WRAP - Allows wrapping; otherwise it is prevented.
+
+[Blur](S) - A shader that blurs in a square radius.
+Intensity (Float) [1] - Controls the radius of the blur.
+
+[ColorFade](S?) - A shader that fades something (like the screen) into a color. ok this one is kinda hard to explain
+Red (Float) [1] - Controls the red intensity.
+Green (Float) [1] - Controls the green intensity.
+Blue (Float) [1] - Controls the blue intensity.
+Intensity (Float) [1] - Controls the master intensity; How much it fades.
+DONT_MIX_COLORS (Keyword) - If enabled, does not greyscale the image before applying color.
+
+[Glitch] - A shader that produces a glitch effect. (Note: Everything with this shader will run on the same timer, so be warey of having multiple sprites with this)
+DONT_SHIFT (Keyword) - If enabled, it makes the affected area into horizontal stripes instead of shifting the area.
++NO_PIXEL_SNAP
+
+[MultiWave] - The default Wave shader, but with variables for the Y axis.
+XWidth (Float) [1] - Width of X waves (the normal ones)
+XRate (Float) [1] - Rate of X waves
+YWidth (Float) [1] - Width of Y waves
+YRate (Float) [1] - Rate of Y waves
++NO_PIXEL_SNAP
+
+[RGBOffset] - Allows you to offset the R, G, and B channels in an image.
+RxOffset (Float) [0] - X Offset of the Red channel.
+RyOffset (Float) [0] - Y Offset of the Red channel.
+GxOffset (Float) [0] - X Offset of the Green channel.
+GyOffset (Float) [0] - Y Offset of the Green channel.
+BxOffset (Float) [0] - X Offset of the Blue channel.
+ByOffset (Float) [0] - Y Offset of the Blue channel.
++NO_WRAP
++NO_PIXEL_SNAP
+
+[ScaleAndRotate](S) - Combines both the ScreenScale and Rotation shaders into one.
+all variables from both are kept the same so ill just list them
+HorMult
+VerMult
+Rotation
+xPivot
+yPivot
+
+[Skew] - Skews. Or shears? Either way, I'm sure you know what I mean.
+XSkew (Float) [0] - Controls the X Skew; positive is right.
+XPivot (Float) [0.5] - Controls the pivot of the X Skew; 0 is bottom and 1 is top.
+YSkew (Float) [0] - Y Skew; positive is up.
+YPivot (Float) [0.5] - Pivot of Y Skew; 0 is left and 1 is right.
++NO_PIXEL_SNAP
++WRAP
+
+[Static] - Applies Static to something.
+Intensity (Float) [0.5] - Controls how visible the static is.
+COLOR_STATIC (Keyword) - If enabled, the static is colored.
+
+[ZoomBlur](S) - Applies a Zoom Blur. Really, these are self-explanatory.
+Intensity (Float) [0] - The intensity of the zoom. This is the most arbitrary value in this whole bundle; it doesn't scale by pixels or anything.
+Neatness (Integer) [10] - The amount of copies the shader considers when blurring. Lower makes it less laggy, but it looks less blurry.
+CenterX (Float) [0.5] - The x position of the zoom's center. 0 is left, 1 is right.
+CenterY (Float) [0.5] - The y position of the zoom's center. 0 is bottom, 1 is top.

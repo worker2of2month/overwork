@@ -2,7 +2,6 @@
 
 
 
--- music = "shine_on_you_crazy_diamond" --Either OGG or WAV. Extension is added automatically. Uncomment for custom music.
 encountertext = "[font:uidialog]Едкий запах заполняет комнату." --Modify as necessary. It will only be read out in the action select screen.
 nextwaves = {}
 wavetimer = 4.0
@@ -18,7 +17,7 @@ enemypositions = {
 }
 
 autolinebreak = true
-
+backpink = nil
 intro = true
 intro_battle_dialog = 0
 starttime = Time.time
@@ -33,6 +32,7 @@ function Update()
         --intro = false
     end
 	Updatestalker()
+	backpink.yscale = 10 + math.sin(Time.time * 1.2) * 5
 end
 
 function stalker_intro()
@@ -64,9 +64,13 @@ function EncounterStarting()
 	require "Animations/asgore"
     Player.name = "Ivan"
     Audio.LoadFile("Stalker_theme_phase1")
-	
+
 	stalkercape.layer = "BelowArena"
 	stalkerfeet.layer = "BelowArena"
+
+	backpink = CreateSprite("backpink", "BelowUI")
+ 	backpink.SetPivot(0, 0)
+	backpink.MoveTo(0, 0)
 
     -- If you want to change the game state immediately, this is the place.
 end
