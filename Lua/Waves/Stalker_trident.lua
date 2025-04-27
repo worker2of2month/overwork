@@ -191,7 +191,7 @@ function wavy_fire_configuration(x) -- firewall_number - номер волны �
     table.insert(emitters, emitter_l)
     table.insert(emitters, emitter_r)
 
-    wavy_fire_status= true 
+    wavy_fire_status = true 
 end
 
 for i=1,3 do
@@ -212,7 +212,6 @@ function create_fireball(emitter)
     fireball.SetVar("Period", 0)
     fireball.SetVar("Period_timer", 0)
 
-
     table.insert(fireballs, fireball)
 
 end
@@ -221,15 +220,6 @@ function update_fireball(fireball)
 
     local time_from_beggin = fireball.GetVar("time_from_beggin") + 1
     fireball.SetVar("time_from_beggin", time_from_beggin)
-
-    --[[if math.abs(1 - math.cos(time_from_beggin / 40)) <= epsilon and Time.time - fireball.GetVar("amp_mul_cooldown") >= 40  then
-        if (fireball.GetVar("amp_mul") == 1) then
-            fireball.SetVar("amp_mul", 1/2)
-        else 
-            fireball.SetVar("amp_mul", 1)
-        end
-        fireball.SetVar("amp_mul_cooldown", Time.time)
-    end]]
 
     if fireball.GetVar("init_x") == fireball.x and fireball.GetVar("Period") == 0 then 
         fireball.SetVar("amp_mul", 1/150)
@@ -244,25 +234,11 @@ function update_fireball(fireball)
         fireball.SetVar("Period_timer", fireball.GetVar("Period_timer") + 1)
     end
 
-
-    --DEBUG(fireball.GetVar("amp_mul_cooldown"))
-
-    --DEBUG(tostring(math.abs(1 - math.cos(time_from_beggin / 40))))
-
     local amp_mul = fireball.GetVar("amp_mul")
-
     local amplitude = fireball.GetVar("amplitude") * amp_mul
-
     local Newx = 1.5 * amplitude * math.cos(time_from_beggin / 40 * 4)
 
     fireball.Move(Newx, -1.9)
-
-    --DEBUG(tostring(Newx))
- 
-    --[[for key, value in pairs(fireballs) do
-        DEBUG(key, value)
-    end]]
-
 end
 
 function create_trident()
@@ -301,8 +277,6 @@ function beep_update()
     if battle_status ~= "warning" then
         return 
     end
-
-    
     if not warning_is_yellow then 
         if Time.time - last_beep_time >= warning_beep_time / 30 then
             warning_is_yellow = true

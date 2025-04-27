@@ -5,9 +5,9 @@ commands = {"Act 1", "Act 2", "Act 3"}
 sprite = "asgoreempty" --Always PNG. Extension is added automatically.
 
 name = "Stalker"
-hp = 6000
-atk = 4
-def = 1
+hp = 1000
+atk = 30
+def = 255
 check = "Do not insult its hair."
 dialogbubble = "rightwide" -- See documentation for what bubbles you have available.
 canspare = false

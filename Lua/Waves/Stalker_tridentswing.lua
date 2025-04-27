@@ -1,4 +1,6 @@
 require "GlobalAnimFunc"
+require "AdditionalMath"
+
 Stalker = CreateProjectileAbs("stalker/tridentswing", 320, 360, "BelowArena")
 Stalker.sprite.xscale = 0.34
 Stalker.sprite.yscale = 0.34
@@ -461,13 +463,5 @@ function OnHit(bullet)
                 Player.Hurt(Player.hp - 1, 1.7)
             end
         end
-    end
-end
-
-function GetDirection(swing)
-    if (swing % 2 == 0) then
-        return "left"
-    else
-        return "right"
     end
 end

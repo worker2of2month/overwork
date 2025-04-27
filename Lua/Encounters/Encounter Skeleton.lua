@@ -2,7 +2,7 @@
 
 
 
-encountertext = "[font:uidialog]Едкий запах заполняет комнату." --Modify as necessary. It will only be read out in the action select screen.
+encountertext = "[font:uidialog]Едкий запах заполняет комнату."
 nextwaves = {}
 wavetimer = 4.0
 arenasize = {155, 130}
@@ -22,8 +22,7 @@ intro = true
 intro_battle_dialog = 0
 starttime = Time.time
 
--- A custom list with attacks to choose from. Actual selection happens in EnemyDialogueEnding(). Put here in case you want to use it.
-possible_attacks = {"Stalker_tridentswing"}
+possible_attacks = {"Stalker_tridentswing_2"--[[, "Stalker_tridentswing", "Stalker_trident"]]}
 
 function Update()
 	currenttime = Time.time - starttime
@@ -71,13 +70,9 @@ function EncounterStarting()
 	backpink = CreateSprite("backpink", "BelowUI")
  	backpink.SetPivot(0, 0)
 	backpink.MoveTo(0, 0)
-
-    -- If you want to change the game state immediately, this is the place.
 end
 
 function EnemyDialogueStarting()
-    -- Good location for setting monster dialogue depending on how the battle is going.
-    --if intro then
         --enemies[1]["currentdialogue"] = {"[noskip][w:5][next]",
 	 --                               "[effect:none][voice:v_fluffybuns][waitall:1] Здесь должен быть очень эпичный диалог"}
     --end
@@ -89,7 +84,7 @@ function EnemyDialogueEnding()
 	stalkerfeet.layer = "Ugly"
 
     -- Good location to fill the 'nextwaves' table with the attacks you want to have simultaneously.
-    nextwaves = { possible_attacks[math.random(#possible_attacks)] }
+    nextwaves = { possible_attacks[math.random(1, #possible_attacks)] }
 
 	if nextwaves[1] == "Stalker_tridentswing" or nextwaves[1] == "Stalker_tridentswing_2" then
 		Hidestalker()
